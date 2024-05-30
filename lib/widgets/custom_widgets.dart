@@ -15,19 +15,21 @@ class CustomTextFormField extends StatelessWidget {
   final bool autofocus;
   final int minLine;
   final int maxLine;
+  final InputDecoration ?focuscolor;
 
-  const CustomTextFormField(
-      {required this.labelText,
-      required this.hintText,
-      required this.controller,
-      this.obscureText = false,
-      this.pre,
-      this.sur,
-      this.validator,
-      this.maxLine = 1,
-      this.minLine = 1 ,
-      this.autofocus = false}
-      );
+  const CustomTextFormField({
+    required this.labelText,
+    required this.hintText,
+    required this.controller,
+    this.obscureText = false,
+    this.pre,
+    this.sur,
+    this.validator,
+    this.maxLine = 1,
+    this.minLine = 1,
+    this.autofocus = false,
+    this.focuscolor
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +38,14 @@ class CustomTextFormField extends StatelessWidget {
         maxLines: maxLine,
         controller: controller,
         decoration: InputDecoration(
-           contentPadding: EdgeInsets.all(16.0), // R
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          contentPadding: EdgeInsets.all(16.0), // R
+          // focusColor: Colors.green,
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.green)),
+          // enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.green)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),),
           labelText: labelText,
+          floatingLabelStyle: TextStyle(color: Colors.green),
+          // labelStyle: TextStyle(color: Colors.green),
           hintText: hintText,
           prefixIcon: pre,
           suffixIcon: sur,
@@ -82,7 +89,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         });
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurple),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -197,6 +204,7 @@ class TimePicker extends StatelessWidget {
       children: <Widget>[
         Expanded(
           flex: 4,
+        
           child: InputDropdown(
             valueText: selectedTime.format(context),
             valueStyle: valueStyle,
@@ -228,8 +236,11 @@ class InputDropdown extends StatelessWidget {
       onTap: onPressed,
       child: InputDecorator(
         decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.green)),
+          // floatingLabelStyle: TextStyle(color: Colors.green),
           labelText: labelText,
         ),
+        
         baseStyle: valueStyle,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -133,7 +133,7 @@ class _MyCupertinoActionSheetState extends State<MyCupertinoActionSheet> {
                     const CircleAvatar(
                       minRadius: 50,
                       maxRadius: 50,
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.pink,
                       child: Icon(
                         Icons.person_sharp,
                         size: 40,
@@ -211,7 +211,7 @@ class _MyCupertinoActionSheetState extends State<MyCupertinoActionSheet> {
                     CupertinoSwitch(
                       value: notification,
                       onChanged: onNotificationChanged,
-                      activeColor: Colors.purple,
+                      activeColor: Colors.green,
                     ),
                   ],
                 ),

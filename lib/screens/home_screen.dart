@@ -56,7 +56,7 @@ class _home_screenState extends State<home_screen> {
               'You\'re Back agian 👍🏻',
               style: TextStyle(color: Colors.white),
             ),
-            backgroundColor: Colors.green,
+            backgroundColor: Color.fromARGB(255, 51, 116, 53),
           ));
         });
       } else if (result == ConnectivityResult.wifi) {
@@ -66,7 +66,7 @@ class _home_screenState extends State<home_screen> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('You\'re Back agian 👍🏻',
                 style: TextStyle(color: Colors.white)),
-            backgroundColor: Colors.green,
+            backgroundColor: Color.fromARGB(255, 51, 116, 53),
           ));
         });
       } else if (result == ConnectivityResult.ethernet) {
@@ -76,7 +76,7 @@ class _home_screenState extends State<home_screen> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('You\'re Back agian 👍🏻',
                 style: TextStyle(color: Colors.white)),
-            backgroundColor: Colors.green,
+            backgroundColor: Color.fromARGB(255, 51, 116, 53),
           ));
         });
       } else if (result == ConnectivityResult.bluetooth) {
@@ -86,7 +86,7 @@ class _home_screenState extends State<home_screen> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('You\'re Back agian 👍🏻',
                 style: TextStyle(color: Colors.white)),
-            backgroundColor: Colors.green,
+            backgroundColor: Color.fromARGB(255, 51, 116, 53),
           ));
         });
       }
@@ -104,19 +104,19 @@ class _home_screenState extends State<home_screen> {
   List<NoteModel> tasks = [];
   List<NoteModel> donetasks = [];
 
-  List<Color> boxcolors = [
-    Colors.deepPurple,
-    const Color.fromARGB(255, 229, 91, 81),
-    const Color.fromARGB(255, 61, 117, 63),
-    const Color.fromARGB(255, 0, 137, 249),
-    Colors.deepPurple,
-    const Color.fromARGB(255, 229, 52, 111),
-    Colors.purple,
-    Colors.teal,
-    Colors.deepOrange,
-    Colors.deepPurple,
-    const Color.fromARGB(255, 64, 77, 149)
-  ];
+   List<Color> boxcolors = [
+      // Color.fromARGB(255, 51, 116, 53),
+      const Color.fromARGB(255, 229, 91, 81),
+      const Color.fromARGB(255, 0, 137, 249),
+      Color.fromARGB(255, 52, 117, 54),
+      Colors.deepPurple,
+      const Color.fromARGB(255, 229, 52, 111),
+      Colors.teal,
+      Color.fromARGB(255, 47, 103, 49),
+      Colors.deepOrange,
+      const Color.fromARGB(255, 64, 77, 149),
+      Color.fromARGB(255, 176, 89, 118),
+    ];
 
   // Function to get the current date in a specific format
 
@@ -248,13 +248,13 @@ class _home_screenState extends State<home_screen> {
                             children: [
                               GestureDetector(
                                 onTap: () async {
-                                  showOptions(context, name.toString(),
+                                  showOptions(context, name.toString().replaceRange(0,1 ,name.toString()[0].toUpperCase()),
                                       email.toString());
                                 },
                                 child: const CircleAvatar(
                                   minRadius: 25,
                                   maxRadius: 25,
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: Colors.pink,
                                   child: Icon(
                                     Icons.person_sharp,
                                     size: 25,
@@ -287,18 +287,18 @@ class _home_screenState extends State<home_screen> {
                                           color: themeprovider.isDarkMode
                                               ? Colors.black
                                               : Colors.white,
-                                          fontSize: 18,
+                                          fontSize: 25,
                                           letterSpacing: 2,
                                         ),
                                       ),
                                       TextSpan(
-                                        text: "$name ",
+                                        text: "${name.toString().replaceRange(0,1 ,name.toString()[0].toUpperCase())}",
                                         style: TextStyle(
                                           color: themeprovider.isDarkMode
                                               ? Colors.black
                                               : Colors.white,
                                           fontSize: 25,
-                                          fontWeight: FontWeight.w200,
+                                          // fontWeight: FontWeight.w200,
                                         ),
                                       ),
                                     ],
@@ -340,7 +340,7 @@ class _home_screenState extends State<home_screen> {
                             width: MediaQuery.of(context).size.width / 3,
                             clipBehavior: Clip.none,
                             decoration: BoxDecoration(
-                                color: Colors.deepPurple,
+                                color: const Color.fromARGB(255, 51, 116, 53),
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Padding(
                               padding: EdgeInsets.only(right: 10, left: 8),
@@ -349,7 +349,8 @@ class _home_screenState extends State<home_screen> {
                                   Text(
                                     "Add Task",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                         color: 
+                                              Colors.white, fontSize: 20),
                                   ),
                                   Icon(
                                     Icons.add,
@@ -403,7 +404,7 @@ class _home_screenState extends State<home_screen> {
                               width: 100,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: Colors.deepPurple.withOpacity(1)),
+                                    color: Color.fromARGB(255, 51, 116, 53).withOpacity(1)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey
@@ -425,8 +426,8 @@ class _home_screenState extends State<home_screen> {
                                             item['date'] &&
                                         selectedBoxValue['dayOfWeek'] ==
                                             item['dayOfWeek']
-                                    ? Colors.deepPurple
-                                    : Colors.deepPurple.withOpacity(0.4),
+                                    ? Color.fromARGB(255, 51, 116, 53)
+                                    : Color.fromARGB(255, 51, 116, 53).withOpacity(0.6),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -497,8 +498,8 @@ class _home_screenState extends State<home_screen> {
                         borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(
                             colors: [
-                              Colors.purple[200]!.withOpacity(1),
-                              Colors.deepPurple.withOpacity(0.5)
+                              Colors.green[200]!.withOpacity(1),
+                              Color.fromARGB(255, 51, 116, 53).withOpacity(0.5)
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight),
@@ -1006,16 +1007,17 @@ class _home_screenState extends State<home_screen> {
                                   child: Column(
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/images/empty_todo.svg',
-                                        height: 200,
+                                        'assets/images/todologo.svg', 
+                                        color: themeprovider.isDarkMode?Color.fromARGB(255, 51, 116, 53):Colors.white.withOpacity(0.7),
+                                        height: 300,
                                       ),
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      const Text(
-                                        "Add Some Task To Increase Your Productivity !!",
+                                      Text(
+                                        "Boost Your Efficiency with Targeted Tasks!",
                                         style: TextStyle(
-                                            color: Colors.white,
+                                            color:  themeprovider.isDarkMode?Colors.black:Colors.white,
                                             fontSize: 15,
                                             fontStyle: FontStyle.normal,
                                             fontWeight: FontWeight.bold),
@@ -1039,7 +1041,7 @@ class _home_screenState extends State<home_screen> {
                         width: 200,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Colors.green.withOpacity(0.2),
+                            color: Color.fromARGB(255, 51, 116, 53).withOpacity(0.2),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.1),
@@ -1052,7 +1054,7 @@ class _home_screenState extends State<home_screen> {
                             "Task Completed",
                             style: TextStyle(
                               fontSize: 15,
-                              color: Colors.green,
+                              color: Color.fromARGB(255, 51, 116, 53),
                             ),
                           ),
                         ),
@@ -1069,8 +1071,8 @@ class _home_screenState extends State<home_screen> {
                             borderRadius: BorderRadius.circular(20),
                             gradient: LinearGradient(
                                 colors: [
-                                  Colors.purple[200]!.withOpacity(1),
-                                  Colors.deepPurple.withOpacity(0.5)
+                                  Colors.green[200]!.withOpacity(1),
+                                  Color.fromARGB(255, 51, 116, 53).withOpacity(0.5)
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight),

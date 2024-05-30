@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:todo/utilities/notification_service.dart';
 import 'firebase_options.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -80,39 +81,35 @@ class splash_screen extends StatefulWidget {
 }
 
 class splash_screenState extends State<splash_screen> {
-
-  
-
   Future<bool> requestExactAlarmsPermission() async {
-  if ( TargetPlatform.android == defaultTargetPlatform || TargetPlatform.iOS == defaultTargetPlatform) {
-    PermissionStatus status = await Permission.notification.request();
-    if (status.isGranted) {
-      print('Notification permission granted.');
-      return true;
-    } else if (status.isDenied) {
-      print('Notification permission denied.');
-      
-      return false;
-    } else if (status.isPermanentlyDenied) {
-      print('Notification permission permanently denied.');
-      openAppSettings();
-      return false;
-    } else if (status.isLimited) {
-      print('Notification permission is limited.');
-      return false;
-    } else if (status.isPermanentlyDenied) {
-  print('Notification permission permanently denied.');
-  openAppSettings();
-  return false;
-}
+    if (TargetPlatform.android == defaultTargetPlatform ||
+        TargetPlatform.iOS == defaultTargetPlatform) {
+      PermissionStatus status = await Permission.notification.request();
+      if (status.isGranted) {
+        print('Notification permission granted.');
+        return true;
+      } else if (status.isDenied) {
+        print('Notification permission denied.');
+
+        return false;
+      } else if (status.isPermanentlyDenied) {
+        print('Notification permission permanently denied.');
+        openAppSettings();
+        return false;
+      } else if (status.isLimited) {
+        print('Notification permission is limited.');
+        return false;
+      } else if (status.isPermanentlyDenied) {
+        print('Notification permission permanently denied.');
+        openAppSettings();
+        return false;
+      }
+    }
+    return false;
   }
-  return false;
-}
 
-
-
-Future<bool> requestNotificationPermission() async {
-  // if (TargetPlatform.android == defaultTargetPlatform || TargetPlatform.iOS == defaultTargetPlatform) {
+  Future<bool> requestNotificationPermission() async {
+    // if (TargetPlatform.android == defaultTargetPlatform || TargetPlatform.iOS == defaultTargetPlatform) {
     PermissionStatus status = await Permission.notification.request();
 
     if (status.isGranted) {
@@ -131,19 +128,18 @@ Future<bool> requestNotificationPermission() async {
       print('Notification permission is limited.');
       return false;
     }
-  // }
-  return false;
-}
-
-
-void openNotificationSettings() async {
-  final String settingsUrl = 'app-settings:';
-  if (await canLaunch(settingsUrl)) {
-    await launch(settingsUrl);
-  } else {
-    print('Could not open app settings. Please open settings manually.');
+    // }
+    return false;
   }
-}
+
+  void openNotificationSettings() async {
+    final String settingsUrl = 'app-settings:';
+    if (await canLaunch(settingsUrl)) {
+      await launch(settingsUrl);
+    } else {
+      print('Could not open app settings. Please open settings manually.');
+    }
+  }
 
   static const String KEYLOGIN = 'login';
 
@@ -171,40 +167,38 @@ void openNotificationSettings() async {
         }
       } else {
         await _flutterLocalNotificationsPlugin.cancelAll();
-          if (context.mounted) {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const signin_screen(),
-                ));
-          }
+        if (context.mounted) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const signin_screen(),
+              ));
+        }
       }
     });
   }
 
   Future<bool> checkNotificationPermission() async {
-  final status = await Permission.notification.status;
-  return status.isGranted;
-}
+    final status = await Permission.notification.status;
+    return status.isGranted;
+  }
 
+  Future<void> _init() async {
+    // Check if notification permission is already granted
+    bool notificationPermission =
+        await SharedPreferences.getInstance().then((prefs) {
+      bool granted = prefs.getBool('notificationPermissionGranted') ?? false;
+      return granted;
+    });
 
+    // Check if exact alarm permission is already granted
+    bool exactAlarmPermission = await requestExactAlarmsPermission();
 
- Future<void> _init() async {
-  // Check if notification permission is already granted
-  bool notificationPermission = await SharedPreferences.getInstance().then((prefs) {
-    bool granted = prefs.getBool('notificationPermissionGranted') ?? false;
-    return granted;
-  });
+    print('Notification Permission: $notificationPermission');
+    print('Exact Alarm Permission: $exactAlarmPermission');
 
-  // Check if exact alarm permission is already granted
-  bool exactAlarmPermission = await requestExactAlarmsPermission();
-
-  print('Notification Permission: $notificationPermission');
-  print('Exact Alarm Permission: $exactAlarmPermission');
-
-  stateChage();
-}
-
+    stateChage();
+  }
 
   @override
   void initState() {
@@ -224,7 +218,7 @@ void openNotificationSettings() async {
                   MainAxisAlignment.center, // Ensure vertical centering
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(child: Image.asset('assets/images/splash_logo.png')),
+                Center(child: SvgPicture.asset('assets/images/todologo.svg',color: Colors.green,width: 300,height: 300,)),
                 SizedBox(
                   height: 10,
                 ),

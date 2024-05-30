@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/models/model.dart';
-import 'package:todo/providers/task_provider.dart';
 import 'package:todo/providers/theme_provider.dart';
 import 'package:todo/utilities/firebase_database.dart';
 
@@ -18,17 +16,17 @@ class show_history extends StatefulWidget {
 
 class _show_historyState extends State<show_history> {
   List<Color> boxcolors = [
-    Colors.deepPurple,
-    const Color.fromARGB(255, 229, 91, 81),
-    const Color.fromARGB(255, 61, 117, 63),
-    const Color.fromARGB(255, 0, 137, 249),
-    Colors.deepPurple,
-    const Color.fromARGB(255, 229, 52, 111),
-    Colors.purple,
-    Colors.teal,
-    Colors.deepOrange,
-    Colors.deepPurple,
-    const Color.fromARGB(255, 64, 77, 149)
+      Colors.green,
+      const Color.fromARGB(255, 229, 91, 81),
+      const Color.fromARGB(255, 0, 137, 249),
+      Color.fromARGB(255, 52, 117, 54),
+      Colors.deepPurple,
+      const Color.fromARGB(255, 229, 52, 111),
+      Colors.teal,
+      Color.fromARGB(255, 47, 103, 49),
+      Colors.deepOrange,
+      const Color.fromARGB(255, 64, 77, 149),
+      Color.fromARGB(255, 176, 89, 118),
   ];
 
   String formatDate(Map<String, dynamic>? dateMap) {
@@ -74,7 +72,7 @@ class _show_historyState extends State<show_history> {
 
     final themeprovider = Provider.of<ThemeProvider>(context);
 
-    final screenwidth = MediaQuery.of(context).size.width;
+    // final screenwidth = MediaQuery.of(context).size.width;
     final screenhight = MediaQuery.of(context).size.height;
 
     return SafeArea(

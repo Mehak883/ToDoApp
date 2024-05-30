@@ -194,6 +194,12 @@ class _TaskFormState extends State<TaskForm> {
                                 keyboardType: TextInputType.none,
                                 controller: starttime,
                                 decoration: InputDecoration(
+                                    floatingLabelStyle: TextStyle(color: Colors.green),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      
+                                      borderSide:
+                                          BorderSide(color: Colors.green)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -238,6 +244,12 @@ class _TaskFormState extends State<TaskForm> {
                                 keyboardType: TextInputType.none,
                                 controller: endtime,
                                 decoration: InputDecoration(
+                                  floatingLabelStyle: TextStyle(color: Colors.green),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      
+                                      borderSide:
+                                          BorderSide(color: Colors.green)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -301,6 +313,9 @@ class _TaskFormState extends State<TaskForm> {
                           );
                         }).toList(),
                         decoration: InputDecoration(
+                          floatingLabelStyle: TextStyle(color: Colors.green),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -330,49 +345,50 @@ class _TaskFormState extends State<TaskForm> {
       ),
     );
   }
-String cleanDate(String dirtyDate) {
-  return dirtyDate.replaceAll(RegExp(r'[┤├]'), '');
-}
 
-String formatTime(DateTime time) {
-  return DateFormat("hh:mm a").format(time);
-}
-
-String calculateStartTime(String selectedStartTime, String reminderOption) {
-  try {
-    String cleanedDate = cleanDate(date.text);
-    DateTime parsedDate = DateFormat("dd MMM yyyy").parse(cleanedDate);
-
-    DateTime startTime = DateFormat("dd MMM yyyy HH:mm").parse(
-      '${DateFormat("dd MMM yyyy").format(parsedDate)} $selectedStartTime',
-    );
-
-    Duration reminderDuration = Duration(seconds: 0);
-
-    switch (reminderOption) {
-      case '5 Minutes early':
-        reminderDuration = const Duration(minutes: 5);
-        break;
-      case '10 Minutes early':
-        reminderDuration = const Duration(minutes: 10);
-        break;
-      case '15 Minutes early':
-        reminderDuration = const Duration(minutes: 15);
-        break;
-      case '30 Minutes early':
-        reminderDuration = const Duration(minutes: 30);
-        break;
-    }
-
-    // Subtract the reminder duration from the original start time
-    startTime = startTime.subtract(reminderDuration);
-
-    return formatTime(startTime); // Pass the DateTime object directly
-  } catch (e) {
-    print("Error calculating start time: $e");
-    return formatTime(DateTime.now()); // Return current time as a fallback
+  String cleanDate(String dirtyDate) {
+    return dirtyDate.replaceAll(RegExp(r'[┤├]'), '');
   }
-}
+
+  String formatTime(DateTime time) {
+    return DateFormat("hh:mm a").format(time);
+  }
+
+  String calculateStartTime(String selectedStartTime, String reminderOption) {
+    try {
+      String cleanedDate = cleanDate(date.text);
+      DateTime parsedDate = DateFormat("dd MMM yyyy").parse(cleanedDate);
+
+      DateTime startTime = DateFormat("dd MMM yyyy HH:mm").parse(
+        '${DateFormat("dd MMM yyyy").format(parsedDate)} $selectedStartTime',
+      );
+
+      Duration reminderDuration = Duration(seconds: 0);
+
+      switch (reminderOption) {
+        case '5 Minutes early':
+          reminderDuration = const Duration(minutes: 5);
+          break;
+        case '10 Minutes early':
+          reminderDuration = const Duration(minutes: 10);
+          break;
+        case '15 Minutes early':
+          reminderDuration = const Duration(minutes: 15);
+          break;
+        case '30 Minutes early':
+          reminderDuration = const Duration(minutes: 30);
+          break;
+      }
+
+      // Subtract the reminder duration from the original start time
+      startTime = startTime.subtract(reminderDuration);
+
+      return formatTime(startTime); // Pass the DateTime object directly
+    } catch (e) {
+      print("Error calculating start time: $e");
+      return formatTime(DateTime.now()); // Return current time as a fallback
+    }
+  }
 
   Future<void> sendtask(BuildContext context) async {
     print("running program");

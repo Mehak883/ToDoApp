@@ -254,6 +254,12 @@ class _UpdateTaskState extends State<UpdateTask> {
                               child: TextFormField(
                                 controller: starttime,
                                 decoration: InputDecoration(
+                                  floatingLabelStyle:
+                                      TextStyle(color: Colors.green),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Colors.green)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -296,6 +302,12 @@ class _UpdateTaskState extends State<UpdateTask> {
                               child: TextFormField(
                                 controller: endtime,
                                 decoration: InputDecoration(
+                                  floatingLabelStyle:
+                                      TextStyle(color: Colors.green),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Colors.green)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -362,6 +374,10 @@ class _UpdateTaskState extends State<UpdateTask> {
                           );
                         }).toList(),
                         decoration: InputDecoration(
+                          floatingLabelStyle: TextStyle(color: Colors.green),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Colors.green)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -392,55 +408,54 @@ class _UpdateTaskState extends State<UpdateTask> {
   }
 
   String cleanDate(String dirtyDate) {
-  return dirtyDate.replaceAll(RegExp(r'[┤├]'), '');
-}
-
-String formatTime(DateTime time) {
-  return DateFormat("hh:mm a").format(time);
-}
-
-String calculateStartTime(String selectedStartTime, String reminderOption) {
-  try {
-    String cleanedDate = cleanDate(date.text);
-    DateTime parsedDate = DateFormat("dd MMM yyyy").parse(cleanedDate);
-
-    DateTime startTime = DateFormat("dd MMM yyyy HH:mm").parse(
-      '${DateFormat("dd MMM yyyy").format(parsedDate)} $selectedStartTime',
-    );
-
-    Duration reminderDuration = Duration(seconds: 0);
-
-    switch (reminderOption) {
-      case '5 Minutes early':
-        reminderDuration = const Duration(minutes: 5);
-        break;
-      case '10 Minutes early':
-        reminderDuration = const Duration(minutes: 10);
-        break;
-      case '15 Minutes early':
-        reminderDuration = const Duration(minutes: 15);
-        break;
-      case '30 Minutes early':
-        reminderDuration = const Duration(minutes: 30);
-        break;
-    }
-
-    // Subtract the reminder duration from the original start time
-    startTime = startTime.subtract(reminderDuration);
-
-    return formatTime(startTime); // Pass the DateTime object directly
-  } catch (e) {
-    print("Error calculating start time: $e");
-    return formatTime(DateTime.now()); // Return current time as a fallback
+    return dirtyDate.replaceAll(RegExp(r'[┤├]'), '');
   }
-}
 
+  String formatTime(DateTime time) {
+    return DateFormat("hh:mm a").format(time);
+  }
+
+  String calculateStartTime(String selectedStartTime, String reminderOption) {
+    try {
+      String cleanedDate = cleanDate(date.text);
+      DateTime parsedDate = DateFormat("dd MMM yyyy").parse(cleanedDate);
+
+      DateTime startTime = DateFormat("dd MMM yyyy HH:mm").parse(
+        '${DateFormat("dd MMM yyyy").format(parsedDate)} $selectedStartTime',
+      );
+
+      Duration reminderDuration = Duration(seconds: 0);
+
+      switch (reminderOption) {
+        case '5 Minutes early':
+          reminderDuration = const Duration(minutes: 5);
+          break;
+        case '10 Minutes early':
+          reminderDuration = const Duration(minutes: 10);
+          break;
+        case '15 Minutes early':
+          reminderDuration = const Duration(minutes: 15);
+          break;
+        case '30 Minutes early':
+          reminderDuration = const Duration(minutes: 30);
+          break;
+      }
+
+      // Subtract the reminder duration from the original start time
+      startTime = startTime.subtract(reminderDuration);
+
+      return formatTime(startTime); // Pass the DateTime object directly
+    } catch (e) {
+      print("Error calculating start time: $e");
+      return formatTime(DateTime.now()); // Return current time as a fallback
+    }
+  }
 
   Future<void> Updatetask(String docId, BuildContext context) async {
     print("running program");
     if (_formkey3.currentState != null && _formkey3.currentState!.validate()) {
-        String selectedReminder = reminder.text;
-       String calculatedStartTime =
+      String selectedReminder = reminder.text;
+      String calculatedStartTime =
           calculateStartTime(starttime.text, selectedReminder);
 
       NoteModel n = NoteModel(
@@ -462,9 +477,8 @@ String calculateStartTime(String selectedStartTime, String reminderOption) {
           await _flutterLocalNotificationsPlugin.cancel(del);
 
           // Schedule Notification
-          
-          
- n = n.copyWith(starttime: calculatedStartTime.toString());
+
+          n = n.copyWith(starttime: calculatedStartTime.toString());
           NotificationService().scheduleNotification(n);
           print(n);
           // Navigator.of(context).pop();

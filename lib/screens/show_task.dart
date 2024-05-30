@@ -53,17 +53,17 @@ class _ShowTaskState extends State<ShowTask> {
   @override
   Widget build(BuildContext context) {
     List<Color> boxcolors = [
-      Colors.deepPurple,
+      Colors.green,
       const Color.fromARGB(255, 229, 91, 81),
-      const Color.fromARGB(255, 61, 117, 63),
       const Color.fromARGB(255, 0, 137, 249),
+      Color.fromARGB(255, 52, 117, 54),
       Colors.deepPurple,
       const Color.fromARGB(255, 229, 52, 111),
-      Colors.purple,
       Colors.teal,
+      Color.fromARGB(255, 47, 103, 49),
       Colors.deepOrange,
-      Colors.deepPurple,
-      const Color.fromARGB(255, 64, 77, 149)
+      const Color.fromARGB(255, 64, 77, 149),
+      Color.fromARGB(255, 176, 89, 118),
     ];
 
     final screenwidth = MediaQuery.of(context).size.width;
@@ -74,8 +74,8 @@ class _ShowTaskState extends State<ShowTask> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(colors: [
-              Colors.purple[200]!.withOpacity(1),
-              Colors.deepPurple.withOpacity(0.5)
+              Colors.green[200]!.withOpacity(1),
+              Colors.green.withOpacity(0.5)
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           ),
           width: MediaQuery.of(context).size.width,
@@ -323,9 +323,8 @@ class _ShowTaskState extends State<ShowTask> {
                                             "⏰ Task Start Time: ${currentTask.starttime}\n"
                                             "⌛ Task End Time: ${currentTask.endtime}\n"
                                             "🚧 Task Status: In Progress\n\n"
-                                            "📝 Dive into seamless task management with the cutting-edge Todo app!\n\n"
-                                            "🌟 Discover the endless possibilities of the Todo app on GitHub. Let's simplify your task management journey together.\n"
-                                            "GitHub Link: https://github.com/Mehak-Thakur-369/Todo-App",
+                                            "📝 Dive into seamless task management with the cutting-edge Todo app!\n\n",
+                                            
                                             subject:
                                                 "📅 Task Details from the Todo App 📝");
                                       },
